@@ -467,29 +467,40 @@
             createSparkleEffect(crystalBall);
             
             crystalBall.addEventListener('click', () => {
-            crystalBall.classList.remove('active');
-            fortuneElement.style.opacity = 0;
+    if (crystalBall.classList.contains('processing')) {
+        return;
+    }
     
-            if (window.fortuneResetTimer) {
-                 clearTimeout(window.fortuneResetTimer);
-            }
+    crystalBall.classList.add('processing');
     
-            setTimeout(() => {
-            crystalBall.classList.add('active');
+    if (window.fortuneRevealTimer) {
+        clearTimeout(window.fortuneRevealTimer);
+    }
+    if (window.fortuneResetTimer) {
+        clearTimeout(window.fortuneResetTimer);
+    }
+    
+    crystalBall.classList.remove('active');
+    fortuneElement.style.opacity = 0;
+    
+    setTimeout(() => {
+        crystalBall.classList.add('active');
         
-            const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-            fortuneElement.textContent = randomFortune;
+        const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+        fortuneElement.textContent = randomFortune;
         
-            setTimeout(() => {
-                fortuneElement.style.opacity = 1;
-            }, 500);
-        
+        window.fortuneRevealTimer = setTimeout(() => {
+            fortuneElement.style.opacity = 1;
+            
             window.fortuneResetTimer = setTimeout(() => {
                 crystalBall.classList.remove('active');
                 fortuneElement.style.opacity = 0;
             }, 15000);
-            }, 300);
-        });
+            
+            crystalBall.classList.remove('processing');
+        }, 500);
+    }, 300);
+});
             
             toggleFormBtn.addEventListener('click', () => {
                 if (addFortuneContainer.style.display === 'none') {
