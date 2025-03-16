@@ -467,40 +467,31 @@
             createSparkleEffect(crystalBall);
             
             crystalBall.addEventListener('click', () => {
-    if (crystalBall.classList.contains('processing')) {
-        return;
-    }
-    
-    crystalBall.classList.add('processing');
-    
-    if (window.fortuneRevealTimer) {
-        clearTimeout(window.fortuneRevealTimer);
-    }
     if (window.fortuneResetTimer) {
         clearTimeout(window.fortuneResetTimer);
     }
     
-    crystalBall.classList.remove('active');
+    if (window.fortuneRevealTimer) {
+        clearTimeout(window.fortuneRevealTimer);
+    }
+    
+    crystalBall.classList.add('active');
     fortuneElement.style.opacity = 0;
     
     setTimeout(() => {
         const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
         fortuneElement.textContent = randomFortune;
         
-        crystalBall.classList.add('active');
-        
-        window.fortuneRevealTimer = setTimeout(() => {
+        setTimeout(() => {
             fortuneElement.style.opacity = 1;
             
             window.fortuneResetTimer = setTimeout(() => {
                 crystalBall.classList.remove('active');
                 fortuneElement.style.opacity = 0;
             }, 15000);
-            
-            crystalBall.classList.remove('processing');
         }, 500);
-    }, 800);
-}
+    }, 1000);
+});
             
             toggleFormBtn.addEventListener('click', () => {
                 if (addFortuneContainer.style.display === 'none') {
