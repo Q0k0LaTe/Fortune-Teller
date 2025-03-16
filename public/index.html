@@ -484,10 +484,10 @@
     fortuneElement.style.opacity = 0;
     
     setTimeout(() => {
-        crystalBall.classList.add('active');
-        
         const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
         fortuneElement.textContent = randomFortune;
+        
+        crystalBall.classList.add('active');
         
         window.fortuneRevealTimer = setTimeout(() => {
             fortuneElement.style.opacity = 1;
@@ -499,8 +499,8 @@
             
             crystalBall.classList.remove('processing');
         }, 500);
-    }, 300);
-});
+    }, 800);
+}
             
             toggleFormBtn.addEventListener('click', () => {
                 if (addFortuneContainer.style.display === 'none') {
