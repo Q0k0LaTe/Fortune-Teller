@@ -1,6 +1,6 @@
 # The Mysterious Fortune Teller
 
-![Fortune Teller Preview](https://github.com/Q0k0LaTe/Fortune-Teller/blob/main/preview.png)
+![Fortune Teller Preview](https://github.com/Q0k0LaTe/Fortune-Teller/blob/master/preview.png)
 
 ## 🔮 Overview
 
