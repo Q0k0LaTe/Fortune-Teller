@@ -125,7 +125,6 @@
             letter-spacing: 0.5px;
         }
         
-        /* Form styles */
         .add-fortune-container {
             margin-top: 60px;
             padding: 20px;
@@ -228,7 +227,6 @@
             transform: translateY(-2px);
         }
         
-        /* Magic sparkles */
         .sparkle {
             position: absolute;
             width: 6px;
@@ -298,37 +296,30 @@
     </div>
     
     <script>
-        // Create stars in the background
         function createStars() {
             const starsCount = 100;
             for (let i = 0; i < starsCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('stars');
                 
-                // Random position
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
                 
-                // Random size
                 const size = Math.random() * 3 + 1;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 
-                // Random animation delay
                 star.style.animationDelay = `${Math.random() * 2}s`;
                 
                 document.body.appendChild(star);
             }
         }
         
-        // Create sparkle effect
         function createSparkleEffect(element) {
             element.addEventListener('mousemove', (e) => {
-                // Create sparkle
                 const sparkle = document.createElement('div');
                 sparkle.classList.add('sparkle');
                 
-                // Position sparkle at cursor with slight random offset
                 const rect = element.getBoundingClientRect();
                 const x = e.clientX - rect.left + (Math.random() * 10 - 5);
                 const y = e.clientY - rect.top + (Math.random() * 10 - 5);
@@ -336,22 +327,17 @@
                 sparkle.style.left = `${x}px`;
                 sparkle.style.top = `${y}px`;
                 
-                // Set random color
                 const colors = ['#fff', '#f0f8ff', '#e6e6fa', '#b0e0e6', '#add8e6'];
                 sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 
-                // Set random size
                 const size = Math.random() * 4 + 2;
                 sparkle.style.width = `${size}px`;
                 sparkle.style.height = `${size}px`;
                 
-                // Add to element
                 element.appendChild(sparkle);
                 
-                // Add animation
                 sparkle.style.animation = `fade-out ${Math.random() * 0.5 + 0.5}s forwards`;
                 
-                // Remove after animation
                 setTimeout(() => {
                     sparkle.remove();
                 }, 1000);
@@ -450,13 +436,11 @@
     "You're about to make a brilliant discovery—how to sleep anywhere."
 ];
         
-        // Fetch fortunes from the server
         async function fetchFortunes() {
             try {
                 const response = await fetch('/api/fortunes');
                 if (response.ok) {
                     const serverFortunes = await response.json();
-                    // Combine default fortunes with server fortunes if we get any
                     if (serverFortunes && serverFortunes.length > 0) {
                         fortunes = [...fortunes, ...serverFortunes];
                     }
@@ -464,14 +448,12 @@
                 }
             } catch (error) {
                 console.error('Error fetching fortunes:', error);
-                // Continue with default fortunes if there's an error
             }
         }
         
-        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             createStars();
-            fetchFortunes(); // Load fortunes from the server
+            fetchFortunes(); 
             
             const crystalBall = document.getElementById('crystalBall');
             const fortuneElement = document.getElementById('fortune');
@@ -482,51 +464,49 @@
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
             
-            // Add sparkle effect to crystal ball
             createSparkleEffect(crystalBall);
             
-            // Crystal ball click handler
             crystalBall.addEventListener('click', () => {
-                // Add active class for glow effect
-                crystalBall.classList.add('active');
-                
-                // Randomly select a fortune
-                const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-                fortuneElement.textContent = randomFortune;
-                
-                // Reveal the fortune with a delay
-                setTimeout(() => {
-                    fortuneElement.style.opacity = 1;
-                }, 500);
-                
-                // Reset after some time
-                setTimeout(() => {
-                    crystalBall.classList.remove('active');
-                    fortuneElement.style.opacity = 0;
-                }, 8000);
-            });
+            crystalBall.classList.remove('active');
+            fortuneElement.style.opacity = 0;
+    
+            if (window.fortuneResetTimer) {
+                 clearTimeout(window.fortuneResetTimer);
+            }
+    
+            setTimeout(() => {
+            crystalBall.classList.add('active');
+        
+            const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+            fortuneElement.textContent = randomFortune;
+        
+            setTimeout(() => {
+                fortuneElement.style.opacity = 1;
+            }, 500);
+        
+            window.fortuneResetTimer = setTimeout(() => {
+                crystalBall.classList.remove('active');
+                fortuneElement.style.opacity = 0;
+            }, 15000);
+            }, 300);
+        });
             
-            // Toggle form visibility
             toggleFormBtn.addEventListener('click', () => {
                 if (addFortuneContainer.style.display === 'none') {
                     addFortuneContainer.style.display = 'block';
                     toggleFormBtn.textContent = 'Hide Form';
-                    // Smooth scroll to form
                     addFortuneContainer.scrollIntoView({ behavior: 'smooth' });
                 } else {
                     addFortuneContainer.style.display = 'none';
                     toggleFormBtn.textContent = 'Add Your Own Fortune';
-                    // Hide any messages
                     successMessage.style.display = 'none';
                     errorMessage.style.display = 'none';
                 }
             });
             
-            // Form submission
             addFortuneForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
-                // Hide any existing messages
                 successMessage.style.display = 'none';
                 errorMessage.style.display = 'none';
                 
@@ -550,12 +530,10 @@
                     const data = await response.json();
                     
                     if (response.ok) {
-                        // Success
                         successMessage.textContent = data.message || 'Your fortune has been added!';
                         successMessage.style.display = 'block';
-                        fortuneText.value = ''; // Clear the form
+                        fortuneText.value = ''; 
                         
-                        // Add the new fortune to the local array so it can appear immediately
                         fortunes.push(fortuneTextValue);
                     } else {
                         // Error
