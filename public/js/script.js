@@ -4,6 +4,9 @@ const fortuneRevealSound = document.getElementById('fortuneRevealSound');
 const toggleSoundBtn = document.getElementById('toggleSound');
 const soundOnIcon = toggleSoundBtn.querySelector('.sound-on');
 const soundOffIcon = toggleSoundBtn.querySelector('.sound-off');
+const toggleThemeBtn = document.getElementById('toggleTheme');
+const lightThemeIcon = toggleThemeBtn.querySelector('.light-theme');
+const darkThemeIcon = toggleThemeBtn.querySelector('.dark-theme');
 
 const crystalBall = document.getElementById('crystalBall');
 const fortuneElement = document.getElementById('fortune');
@@ -19,6 +22,7 @@ const closeBtn = document.querySelector('.close-btn');
 
 let soundEnabled = true;
 let pageInteracted = false;
+let lightMode = false;
 
 function createStars() {
     const starsCount = 100;
@@ -139,6 +143,21 @@ let fortunes = [
     "The mystical eye sees abundance flowing toward you. Open your hands to receive."
 ];
 
+function toggleTheme() {
+    lightMode = !lightMode;
+    
+    if (lightMode) {
+        document.body.classList.add('light-mode');
+        lightThemeIcon.style.display = 'none';
+        darkThemeIcon.style.display = 'block';
+    } else {
+        document.body.classList.remove('light-mode');
+        lightThemeIcon.style.display = 'block';
+        darkThemeIcon.style.display = 'none';
+    }
+    
+    localStorage.setItem('fortuneTellerLightMode', lightMode);
+}
 
 async function fetchFortunes() {
     try {
@@ -196,10 +215,18 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchFortunes();
     createSparkleEffect(crystalBall);
     
+    // Check saved preferences
     if (localStorage.getItem('fortuneTellerSoundEnabled') === 'false') {
         soundEnabled = false;
         soundOnIcon.style.display = 'none';
         soundOffIcon.style.display = 'block';
+    }
+    
+    if (localStorage.getItem('fortuneTellerLightMode') === 'true') {
+        lightMode = true;
+        document.body.classList.add('light-mode');
+        lightThemeIcon.style.display = 'none';
+        darkThemeIcon.style.display = 'block';
     }
     
     document.addEventListener('click', initiateAudio);
@@ -207,6 +234,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     toggleSoundBtn.addEventListener('click', () => {
         toggleSounds();
+    });
+    
+    toggleThemeBtn.addEventListener('click', () => {
+        toggleTheme();
+        
+        if (soundEnabled) {
+            crystalSound.currentTime = 0;
+            crystalSound.volume = 0.3;
+            crystalSound.play();
+        }
     });
     
     // About modal functionality

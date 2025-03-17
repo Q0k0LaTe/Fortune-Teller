@@ -1,15 +1,38 @@
+:root {
+    --bg-gradient-dark: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    --bg-gradient-light: linear-gradient(135deg, #c9d6ff, #e2e2e2);
+    --text-color-dark: white;
+    --text-color-light: #1a1a2e;
+    --accent-color-dark: #90e0ef;
+    --accent-color-light: #3a86ff;
+    --container-bg-dark: rgba(255, 255, 255, 0.1);
+    --container-bg-light: rgba(0, 0, 30, 0.1);
+    --container-border-dark: rgba(255, 255, 255, 0.1);
+    --container-border-light: rgba(0, 0, 30, 0.1);
+    --button-border-dark: rgba(255, 255, 255, 0.4);
+    --button-border-light: rgba(0, 0, 30, 0.4);
+    --modal-bg-dark: linear-gradient(135deg, #1c1945, #302b63);
+    --modal-bg-light: linear-gradient(135deg, #e2e2f0, #b8c0ff);
+}
+
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background: var(--bg-gradient-dark);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: 'Almendra', serif;
-    color: white;
+    color: var(--text-color-dark);
     overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+body.light-mode {
+    background: var(--bg-gradient-light);
+    color: var(--text-color-light);
 }
 
 h1 {
@@ -24,10 +47,18 @@ h1 {
     letter-spacing: 2px;
 }
 
+body.light-mode h1 {
+    text-shadow: 0 0 10px rgba(0, 0, 30, 0.3);
+}
+
 h2 {
     font-family: 'MedievalSharp', cursive;
-    color: #90e0ef;
+    color: var(--accent-color-dark);
     letter-spacing: 1px;
+}
+
+body.light-mode h2 {
+    color: var(--accent-color-light);
 }
 
 .crystal-ball {
@@ -41,19 +72,32 @@ h2 {
     transition: all 0.3s ease;
 }
 
+body.light-mode .crystal-ball {
+    background: radial-gradient(circle at 70px 70px, rgba(255, 255, 255, 0.9), rgba(70, 130, 180, 0.5));
+    box-shadow: 0 0 30px rgba(0, 85, 170, 0.5);
+}
+
 .crystal-ball:hover {
     transform: scale(1.05);
     box-shadow: 0 0 40px rgba(0, 255, 255, 0.7);
+}
+
+body.light-mode .crystal-ball:hover {
+    box-shadow: 0 0 40px rgba(0, 85, 170, 0.7);
 }
 
 .crystal-ball.active {
     animation: glow 2s infinite alternate;
 }
 
+body.light-mode .crystal-ball.active {
+    animation: glow-light 2s infinite alternate;
+}
+
 .fortune {
     margin-top: 40px;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--container-bg-dark);
     border-radius: 10px;
     max-width: 80%;
     text-align: center;
@@ -63,6 +107,10 @@ h2 {
     line-height: 1.6;
     font-family: 'Satisfy', cursive;
     letter-spacing: 1px;
+}
+
+body.light-mode .fortune {
+    background-color: var(--container-bg-light);
 }
 
 .stars {
@@ -75,12 +123,25 @@ h2 {
     z-index: -5;
 }
 
+body.light-mode .stars {
+    background-color: #1a1a2e;
+}
+
 @keyframes glow {
     0% {
         box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
     }
     100% {
         box-shadow: 0 0 60px rgba(0, 255, 255, 0.9), 0 0 100px rgba(255, 255, 255, 0.3);
+    }
+}
+
+@keyframes glow-light {
+    0% {
+        box-shadow: 0 0 30px rgba(0, 85, 170, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 60px rgba(0, 85, 170, 0.9), 0 0 100px rgba(0, 0, 255, 0.3);
     }
 }
 
@@ -117,13 +178,19 @@ h2 {
 .add-fortune-container {
     margin-top: 60px;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--container-bg-dark);
     border-radius: 10px;
     max-width: 500px;
     width: 90%;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--container-border-dark);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+body.light-mode .add-fortune-container {
+    background-color: var(--container-bg-light);
+    border: 1px solid var(--container-border-light);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .add-fortune-form {
@@ -146,9 +213,19 @@ h2 {
     font-family: 'Almendra', serif;
 }
 
+body.light-mode .add-fortune-form textarea {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 30, 0.3);
+    color: var(--text-color-light);
+}
+
 .add-fortune-form textarea::placeholder {
     color: rgba(255, 255, 255, 0.6);
     font-family: 'Almendra', serif;
+}
+
+body.light-mode .add-fortune-form textarea::placeholder {
+    color: rgba(0, 0, 30, 0.6);
 }
 
 .add-fortune-form button {
@@ -167,9 +244,19 @@ h2 {
     letter-spacing: 1px;
 }
 
+body.light-mode .add-fortune-form button {
+    background: linear-gradient(45deg, #3a86ff, #8ecae6);
+    color: white;
+    box-shadow: 0 4px 15px rgba(58, 134, 255, 0.4);
+}
+
 .add-fortune-form button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 180, 216, 0.6);
+}
+
+body.light-mode .add-fortune-form button:hover {
+    box-shadow: 0 6px 20px rgba(58, 134, 255, 0.6);
 }
 
 .message {
@@ -200,8 +287,8 @@ h2 {
 
 .toggle-form-btn {
     background: none;
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    color: white;
+    border: 2px solid var(--button-border-dark);
+    color: var(--text-color-dark);
     padding: 10px 20px;
     border-radius: 30px;
     cursor: pointer;
@@ -211,9 +298,18 @@ h2 {
     letter-spacing: 1px;
 }
 
+body.light-mode .toggle-form-btn {
+    border: 2px solid var(--button-border-light);
+    color: var(--text-color-light);
+}
+
 .toggle-form-btn:hover {
     background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
+}
+
+body.light-mode .toggle-form-btn:hover {
+    background-color: rgba(0, 0, 30, 0.1);
 }
 
 .sparkle {
@@ -244,6 +340,10 @@ h2 {
     bottom: 20px;
     right: 20px;
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }
 
 .sound-toggle {
@@ -262,9 +362,37 @@ h2 {
     backdrop-filter: blur(5px);
 }
 
-.sound-toggle:hover {
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: white;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.sound-toggle:hover,
+.theme-toggle:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: scale(1.1);
+}
+
+body.light-mode .sound-toggle,
+body.light-mode .theme-toggle {
+    background: rgba(0, 0, 30, 0.2);
+    color: var(--text-color-light);
+}
+
+body.light-mode .sound-toggle:hover,
+body.light-mode .theme-toggle:hover {
+    background: rgba(0, 0, 30, 0.3);
 }
 
 /* Modal Styles */
@@ -281,8 +409,12 @@ h2 {
     backdrop-filter: blur(5px);
 }
 
+body.light-mode .modal {
+    background-color: rgba(0, 0, 30, 0.5);
+}
+
 .modal-content {
-    background: linear-gradient(135deg, #1c1945, #302b63);
+    background: var(--modal-bg-dark);
     margin: 10% auto;
     padding: 25px;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -292,6 +424,12 @@ h2 {
     box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
     animation: modal-appear 0.4s ease-out;
     position: relative;
+}
+
+body.light-mode .modal-content {
+    background: var(--modal-bg-light);
+    border: 1px solid rgba(0, 0, 30, 0.2);
+    box-shadow: 0 0 30px rgba(0, 85, 170, 0.3);
 }
 
 @keyframes modal-appear {
@@ -312,6 +450,10 @@ h2 {
     color: white;
 }
 
+body.light-mode .close-btn:hover {
+    color: var(--text-color-light);
+}
+
 .about-content {
     margin-top: 20px;
     line-height: 1.6;
@@ -319,8 +461,12 @@ h2 {
 
 .about-content h3 {
     margin-top: 20px;
-    color: #90e0ef;
+    color: var(--accent-color-dark);
     font-family: 'MedievalSharp', cursive;
+}
+
+body.light-mode .about-content h3 {
+    color: var(--accent-color-light);
 }
 
 .about-content ul {
@@ -367,5 +513,17 @@ h2 {
     
     .about-content {
         font-size: 0.9rem;
+    }
+    
+    .sound-controls {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .sound-toggle,
+    .theme-toggle {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
     }
 }

@@ -34,6 +34,7 @@ The Mysterious Fortune Teller is an interactive web application that provides my
   - Added About button and information modal
   - Improved UI responsiveness
   - Enhanced crystal ball animation effects
+- **v1.1**: Added light mode
 
 ## 🛠️ Technologies
 
