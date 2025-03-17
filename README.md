@@ -35,6 +35,10 @@ The Mysterious Fortune Teller is an interactive web application that provides my
   - Improved UI responsiveness
   - Enhanced crystal ball animation effects
 - **v1.1**: Added light mode
+  - Added switch light/dark mode button
+- **v2.1**: Added Q&A fortune-teller mode
+  - Driven by DeepSeek V3 model
+  - Added new UI design
 
 ## 🛠️ Technologies
 

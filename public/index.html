@@ -19,8 +19,22 @@
     
     <div class="fortune" id="fortune"></div>
     
+    <div class="ask-question-container" id="askQuestionContainer" style="display: none;">
+      <h2>Ask the Mystic Oracle</h2>
+      <form class="ask-question-form" id="askQuestionForm">
+        <textarea id="questionText" placeholder="Ask your question to the mystic oracle... (minimum 5 characters)" required></textarea>
+        <button type="submit">Seek Answer</button>
+      </form>
+      <div class="loading-indicator" id="loadingIndicator" style="display: none;">
+        <div class="crystal-spinner"></div>
+        <p>Consulting the cosmic forces...</p>
+      </div>
+      <div class="answer" id="answerText"></div>
+    </div>
+    
     <div class="button-container">
         <button class="toggle-form-btn" id="toggleFormBtn">Add Your Own Fortune</button>
+        <button class="toggle-form-btn" id="toggleQuestionBtn">Ask a Question</button>
         <button class="toggle-form-btn" id="aboutBtn">About</button>
     </div>
     
@@ -47,16 +61,46 @@
                 <h3>Features</h3>
                 <ul>
                     <li>Interactive Crystal Ball with magical effects</li>
-                    <li>Diverse collection of mystical fortunes</li>
+                    <li>Random fortune generation from a diverse collection</li>
                     <li>Add your own fortunes to the collection</li>
+                    <li>Ask personal questions to the Mystic Oracle</li>
                     <li>Immersive audio experience</li>
+                    <li>Dark/Light theme toggle</li>
                     <li>Responsive design for all devices</li>
+                </ul>
+                
+                <h3>Version History</h3>
+                <ul>
+                    <li><strong>v0.1</strong>: Initial version with basic functionality</li>
+                    <li><strong>v0.2</strong>: Fixed bugs related to fortune display timers</li>
+                    <li><strong>v0.3</strong>: Added background music and interactive sound effects
+                        <ul>
+                            <li>Magical background ambience</li>
+                            <li>Crystal ball click sounds</li>
+                            <li>Fortune reveal sound effects</li>
+                            <li>Sound toggle controls</li>
+                        </ul>
+                    </li>
+                    <li><strong>v1.0</strong>: First official release
+                        <ul>
+                            <li>Added About button and information modal</li>
+                            <li>Implemented dark/light theme toggle</li>
+                            <li>Enhanced crystal ball animation effects</li>
+                        </ul>
+                    </li>
+                    <li><strong>v1.1</strong>: Added personalized question & answer feature
+                        <ul>
+                            <li>Ask specific questions to the Mystic Oracle</li>
+                            <li>Receive personalized mystical answers</li>
+                            <li>Improved UI and animations</li>
+                        </ul>
+                    </li>
                 </ul>
                 
                 <h3>Created By</h3>
                 <p>Terrence Han</p>
                 
-                <p class="version-info">Version 1.0</p>
+                <p class="version-info">Version 1.1</p>
             </div>
         </div>
     </div>

@@ -20,6 +20,13 @@ const aboutBtn = document.getElementById('aboutBtn');
 const aboutModal = document.getElementById('aboutModal');
 const closeBtn = document.querySelector('.close-btn');
 
+const toggleQuestionBtn = document.getElementById('toggleQuestionBtn');
+const askQuestionContainer = document.getElementById('askQuestionContainer');
+const askQuestionForm = document.getElementById('askQuestionForm');
+const questionText = document.getElementById('questionText');
+const answerText = document.getElementById('answerText');
+const loadingIndicator = document.getElementById('loadingIndicator');
+
 let soundEnabled = true;
 let pageInteracted = false;
 let lightMode = false;
@@ -215,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchFortunes();
     createSparkleEffect(crystalBall);
     
-    // Check saved preferences
     if (localStorage.getItem('fortuneTellerSoundEnabled') === 'false') {
         soundEnabled = false;
         soundOnIcon.style.display = 'none';
@@ -246,7 +252,85 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // About modal functionality
+    toggleQuestionBtn.addEventListener('click', () => {
+        if (addFortuneContainer.style.display === 'block') {
+            addFortuneContainer.style.display = 'none';
+            toggleFormBtn.textContent = 'Add Your Own Fortune';
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+        }
+        
+        if (askQuestionContainer.style.display === 'none') {
+            askQuestionContainer.style.display = 'block';
+            toggleQuestionBtn.textContent = 'Hide Question Form';
+            askQuestionContainer.scrollIntoView({ behavior: 'smooth' });
+            
+            if (soundEnabled) {
+                crystalSound.currentTime = 0;
+                crystalSound.volume = 0.3;
+                crystalSound.play();
+                setTimeout(() => {
+                    crystalSound.volume = 1.0; 
+                }, 300);
+            }
+        } else {
+            askQuestionContainer.style.display = 'none';
+            toggleQuestionBtn.textContent = 'Ask a Question';
+            answerText.style.display = 'none';
+        }
+    });
+    
+    askQuestionForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const questionValue = questionText.value.trim();
+        
+        if (questionValue.length < 5) {
+            alert('Your question must be at least 5 characters long');
+            return;
+        }
+        
+        loadingIndicator.style.display = 'block';
+        answerText.style.display = 'none';
+        
+        if (soundEnabled) {
+            crystalSound.currentTime = 0;
+            crystalSound.play();
+        }
+        
+        try {
+            const response = await fetch('/api/ask-question', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: questionValue })
+            });
+            
+            const data = await response.json();
+            
+            loadingIndicator.style.display = 'none';
+            
+            if (response.ok) {
+                answerText.textContent = data.answer;
+                answerText.style.display = 'block';
+                
+                if (soundEnabled) {
+                    fortuneRevealSound.currentTime = 0;
+                    fortuneRevealSound.play();
+                }
+            } else {
+                answerText.textContent = data.error || 'The mystic forces are clouded. Please try again later.';
+                answerText.style.display = 'block';
+            }
+        } catch (error) {
+            console.error('Error asking question:', error);
+            loadingIndicator.style.display = 'none';
+            answerText.textContent = 'The connection to the spiritual realm was lost. Please try again later.';
+            answerText.style.display = 'block';
+        }
+    });
+    
     aboutBtn.addEventListener('click', () => {
         aboutModal.style.display = 'block';
         
@@ -257,19 +341,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Close button functionality
     closeBtn.addEventListener('click', () => {
         aboutModal.style.display = 'none';
     });
     
-    // Close when clicking outside the modal
     window.addEventListener('click', (event) => {
         if (event.target === aboutModal) {
             aboutModal.style.display = 'none';
         }
     });
     
-    // Close with Escape key
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && aboutModal.style.display === 'block') {
             aboutModal.style.display = 'none';
@@ -314,6 +395,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     toggleFormBtn.addEventListener('click', () => {
+        if (askQuestionContainer.style.display === 'block') {
+            askQuestionContainer.style.display = 'none';
+            toggleQuestionBtn.textContent = 'Ask a Question';
+        }
+        
         if (addFortuneContainer.style.display === 'none') {
             addFortuneContainer.style.display = 'block';
             toggleFormBtn.textContent = 'Hide Form';
