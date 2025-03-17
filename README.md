@@ -2,6 +2,10 @@
 
 ![Fortune Teller Preview](https://github.com/Q0k0LaTe/Fortune-Teller/blob/master/preview.png)
 
+## 🔮 Live Demo
+
+Try the Fortune Teller now: [https://fortune-teller-9s30.onrender.com/](https://fortune-teller-9s30.onrender.com/)
+
 ## 🔮 Overview
 
 The Mysterious Fortune Teller is an interactive web application that provides mystical fortunes through a beautifully designed crystal ball interface. Users can receive random fortunes by clicking the crystal ball and can contribute their own fortunes to the collection.
@@ -33,7 +37,7 @@ The Mysterious Fortune Teller is an interactive web application that provides my
 - **Backend**: Node.js, Express
 - **Database**: MongoDB
 - **Audio**: Custom sound effects and background music
-- **Deployment**: GitHub
+- **Deployment**: GitHub and Render
 
 ## 📋 Prerequisites
 
