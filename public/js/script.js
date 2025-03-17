@@ -13,6 +13,9 @@ const addFortuneForm = document.getElementById('addFortuneForm');
 const fortuneText = document.getElementById('fortuneText');
 const successMessage = document.getElementById('successMessage');
 const errorMessage = document.getElementById('errorMessage');
+const aboutBtn = document.getElementById('aboutBtn');
+const aboutModal = document.getElementById('aboutModal');
+const closeBtn = document.querySelector('.close-btn');
 
 let soundEnabled = true;
 let pageInteracted = false;
@@ -91,7 +94,7 @@ let fortunes = [
     "Today is the perfect day to do absolutely nothing.",
     "Trust your instincts, unless you're hungry, then trust pizza.",
     "Your wifi signal is stronger than your willpower.",
-    "You’ll meet someone who appreciates your bad jokes.",
+    "You'll meet someone who appreciates your bad jokes.",
     "An amazing opportunity will arise—probably related to snacks.",
     "Your next haircut will either be amazing or a character-building experience.",
     "The fortune cookie gods suggest buying new socks.",
@@ -105,7 +108,7 @@ let fortunes = [
     "You'll soon receive a sign—most likely a low battery warning.",
     "Great wisdom comes to those who binge-watch responsibly.",
     "You will make a difference, primarily by accidentally replying 'reply all.'",
-    "Today’s lucky color is transparent.",
+    "Today's lucky color is transparent.",
     "You will unlock new levels of laziness previously thought impossible.",
     "The future is bright, mostly due to your screen brightness settings.",
     "An old acquaintance will soon reappear, mainly in your notifications.",
@@ -119,16 +122,16 @@ let fortunes = [
     "A pleasant surprise awaits you—someone already charged your devices.",
     "You'll soon find inner peace, most likely after your phone dies.",
     "Your next great discovery involves figuring out the microwave buttons.",
-    "Happiness is closer than you think—it’s in the snack aisle.",
+    "Happiness is closer than you think—it's in the snack aisle.",
     "The stars see everything, including your questionable search history.",
     "Something amazing is about to happen—unless you nap through it again.",
     "A forgotten password holds the key to your destiny.",
     "Your life is a series of fascinating adventures—mostly grocery shopping.",
     "Expect a sudden burst of inspiration, immediately followed by procrastination.",
     "An old friend will surprise you—mostly by liking an old post.",
-    "You’re about to make a great discovery—probably a new meme.",
+    "You're about to make a great discovery—probably a new meme.",
     "You'll receive unexpected recognition—your WiFi password gets leaked.",
-    "You’ll soon achieve enlightenment, primarily about pizza toppings.",
+    "You'll soon achieve enlightenment, primarily about pizza toppings.",
     "The secret to happiness involves not setting morning alarms.",
     "Your life will soon be filled with joy, or at least snacks.",
     "Great success is on the horizon—if you squint hard enough.",
@@ -136,18 +139,18 @@ let fortunes = [
     "You will soon find out someone envies your comfy pajamas.",
     "The key to your future is realizing keys are usually in your pocket.",
     "Your luck will improve drastically after changing your ringtone.",
-    "You'll soon encounter unexpected wealth—someone else’s penny jar.",
+    "You'll soon encounter unexpected wealth—someone else's penny jar.",
     "Life holds infinite possibilities, most involve dessert.",
     "Adventure awaits, but first, more coffee.",
     "Your most productive hour today will be spent rearranging apps.",
-    "You will soon uncover the secret of life—it’s probably WiFi.",
+    "You will soon uncover the secret of life—it's probably WiFi.",
     "Expect compliments—mostly from your delivery apps.",
     "Your day will improve significantly after you locate your charger.",
     "You will soon learn something useful from an unskippable ad.",
     "Your hidden talent is opening jars nobody else can.",
     "A life-changing experience awaits—probably just a software update.",
     "You'll soon impress someone accidentally, mostly with trivia.",
-    "You’re about to make a groundbreaking decision: order pizza or tacos.",
+    "You're about to make a groundbreaking decision: order pizza or tacos.",
     "Expect to meet your greatest ally—auto-save.",
     "Today is the day you finally figure out the TV remote.",
     "You will soon stumble upon unexpected fortune: bonus fries.",
@@ -225,6 +228,36 @@ document.addEventListener('DOMContentLoaded', () => {
     
     toggleSoundBtn.addEventListener('click', () => {
         toggleSounds();
+    });
+    
+    // About modal functionality
+    aboutBtn.addEventListener('click', () => {
+        aboutModal.style.display = 'block';
+        
+        if (soundEnabled) {
+            crystalSound.currentTime = 0;
+            crystalSound.volume = 0.3;
+            crystalSound.play();
+        }
+    });
+    
+    // Close button functionality
+    closeBtn.addEventListener('click', () => {
+        aboutModal.style.display = 'none';
+    });
+    
+    // Close when clicking outside the modal
+    window.addEventListener('click', (event) => {
+        if (event.target === aboutModal) {
+            aboutModal.style.display = 'none';
+        }
+    });
+    
+    // Close with Escape key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && aboutModal.style.display === 'block') {
+            aboutModal.style.display = 'none';
+        }
     });
     
     crystalBall.addEventListener('click', () => {

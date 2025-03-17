@@ -21,6 +21,7 @@
     
     <div class="button-container">
         <button class="toggle-form-btn" id="toggleFormBtn">Add Your Own Fortune</button>
+        <button class="toggle-form-btn" id="aboutBtn">About</button>
     </div>
     
     <div class="add-fortune-container" id="addFortuneContainer" style="display: none;">
@@ -31,6 +32,33 @@
         </form>
         <div class="message success" id="successMessage">Your fortune has been added!</div>
         <div class="message error" id="errorMessage">Error submitting fortune. Please try again.</div>
+    </div>
+    
+    <div class="modal" id="aboutModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>About The Mysterious Fortune Teller</h2>
+            <div class="about-content">
+                <p>Welcome to The Mysterious Fortune Teller, an interactive mystical experience that provides insights through a beautifully designed crystal ball interface.</p>
+                
+                <h3>How It Works</h3>
+                <p>Simply click on the crystal ball to receive a random fortune from our diverse collection. The crystal ball will glow and reveal your mystical message.</p>
+                
+                <h3>Features</h3>
+                <ul>
+                    <li>Interactive Crystal Ball with magical effects</li>
+                    <li>Diverse collection of mystical fortunes</li>
+                    <li>Add your own fortunes to the collection</li>
+                    <li>Immersive audio experience</li>
+                    <li>Responsive design for all devices</li>
+                </ul>
+                
+                <h3>Created By</h3>
+                <p>Terrence Han</p>
+                
+                <p class="version-info">Version 0.3</p>
+            </div>
+        </div>
     </div>
     
     <audio id="bgMusic" loop>
