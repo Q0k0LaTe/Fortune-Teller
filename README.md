@@ -30,6 +30,10 @@ The Mysterious Fortune Teller is an interactive web application that provides my
   - Crystal ball click sounds
   - Fortune reveal sound effects
   - Sound toggle controls
+- **v1.0**: First official release
+  - Added About button and information modal
+  - Improved UI responsiveness
+  - Enhanced crystal ball animation effects
 
 ## 🛠️ Technologies
 
