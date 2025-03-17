@@ -246,10 +246,12 @@ function toggleLanguage() {
     if (chineseMode) {
         englishLangIcon.style.display = 'none';
         chineseLangIcon.style.display = 'block';
+        document.body.classList.add('chinese-mode'); // Add this line
         updateUILanguage('zh');
     } else {
         englishLangIcon.style.display = 'block';
         chineseLangIcon.style.display = 'none';
+        document.body.classList.remove('chinese-mode'); // Add this line
         updateUILanguage('en');
     }
     
@@ -273,7 +275,64 @@ function updateUILanguage(lang) {
             'askQuestionTitle': 'Ask the Mystic Oracle',
             'questionPlaceholder': 'Ask your question to the mystic oracle... (minimum 5 characters)',
             'seekAnswerBtn': 'Seek Answer',
-            'loadingText': 'Consulting the cosmic forces...'
+            'loadingText': 'Consulting the cosmic forces...',
+            
+            // About modal translations
+            'aboutTitle': 'About The Mysterious Fortune Teller',
+            'aboutIntro': 'Welcome to The Mysterious Fortune Teller, an interactive mystical experience that provides insights through a beautifully designed crystal ball interface.',
+            'howItWorks': 'How It Works',
+            'howItWorksDesc': 'Simply click on the crystal ball to receive a random fortune from our diverse collection. The crystal ball will glow and reveal your mystical message.',
+            'featuresTitle': 'Features',
+            'features': [
+                'Interactive Crystal Ball with magical effects',
+                'Random fortune generation from a diverse collection',
+                'Add your own fortunes to the collection',
+                'Ask personal questions to the Mystic Oracle',
+                'Immersive audio experience',
+                'Dark/Light theme toggle',
+                'English/Chinese language switch',
+                'Responsive design for all devices'
+            ],
+            'versionTitle': 'Version History',
+            'versions': [
+                'Initial version with basic functionality',
+                'Fixed bugs related to fortune display timers',
+                'Added background music and interactive sound effects',
+                'First official release',
+                'Added light mode',
+                'Added Q&A fortune-teller mode',
+                'Added Chinese mode',
+                'Fixed Bugs'
+            ],
+            'features_v03': [
+                'Magical background ambience',
+                'Crystal ball click sounds',
+                'Fortune reveal sound effects',
+                'Sound toggle controls'
+            ],
+            'features_v10': [
+                'Added About button and information modal',
+                'Improved UI responsiveness',
+                'Enhanced crystal ball animation effects'
+            ],
+            'features_v11': [
+                'Added switch light/dark mode button'
+            ],
+            'features_v21': [
+                'Driven by DeepSeek V3 model',
+                'Added new UI design'
+            ],
+            'features_v22': [
+                'New button to switch between languages',
+                'Added new UI design'
+            ],
+            'features_v221': [
+                'Fixed the bug that "about" is still English when switched to Chinese mode',
+                'Fixed the bug of version appearance',
+                'Fixed the bug where Chinese fonts are not showing'
+            ],
+            'creatorTitle': 'Created By',
+            'versionInfo': 'Version'
         },
         'zh': {
             'title': '神秘的占卜师',
@@ -290,11 +349,68 @@ function updateUILanguage(lang) {
             'askQuestionTitle': '向神秘预言家提问',
             'questionPlaceholder': '向神秘预言家提出你的问题... (最少5个字符)',
             'seekAnswerBtn': '寻求答案',
-            'loadingText': '正在咨询宇宙力量...'
+            'loadingText': '正在咨询宇宙力量...',
+            
+            // About modal translations
+            'aboutTitle': '关于神秘的占卜师',
+            'aboutIntro': '欢迎来到神秘的占卜师，这是一个通过精美设计的水晶球界面提供洞察力的互动神秘体验。',
+            'howItWorks': '如何使用',
+            'howItWorksDesc': '只需点击水晶球，即可从我们多样化的收藏中收到随机占卜。水晶球会发光并揭示你的神秘信息。',
+            'featuresTitle': '功能特点',
+            'features': [
+                '带有魔法效果的互动水晶球',
+                '多样化收藏的随机占卜生成',
+                '添加你自己的占卜到收藏中',
+                '向神秘预言家提问',
+                '沉浸式音频体验',
+                '深色/浅色主题切换',
+                '英文/中文语言切换',
+                '适应各种设备的响应式设计'
+            ],
+            'versionTitle': '版本历史',
+            'versions': [
+                '初始版本，具有基本功能',
+                '修复与占卜显示计时器相关的错误',
+                '添加背景音乐和互动音效',
+                '首个正式发布版本',
+                '添加浅色模式',
+                '添加问答占卜模式',
+                '添加中文模式',
+                '修复错误'
+            ],
+            'features_v03': [
+                '神秘背景氛围',
+                '水晶球点击音效',
+                '占卜揭示音效',
+                '声音开关控制'
+            ],
+            'features_v10': [
+                '添加关于按钮和信息模态框',
+                '改进UI响应性',
+                '增强水晶球动画效果'
+            ],
+            'features_v11': [
+                '添加深色/浅色模式切换按钮'
+            ],
+            'features_v21': [
+                '由DeepSeek V3模型驱动',
+                '添加新的UI设计'
+            ],
+            'features_v22': [
+                '新增语言切换按钮',
+                '添加新的UI设计'
+            ],
+            'features_v221': [
+                '修复切换到中文模式时"关于"仍为英文的错误',
+                '修复版本显示的错误',
+                '修复中文字体不显示的错误'
+            ],
+            'creatorTitle': '创作者',
+            'versionInfo': '版本'
         }
     };
     
-    // Update text content
+    // Update basic UI elements
     document.querySelector('h1').textContent = translations[lang].title;
     document.querySelector('.instructions').textContent = translations[lang].instructions;
     
@@ -328,6 +444,61 @@ function updateUILanguage(lang) {
         askQuestionForm.querySelector('button').textContent = translations[lang].seekAnswerBtn;
         loadingIndicator.querySelector('p').textContent = translations[lang].loadingText;
     }
+    
+    // Update about modal content
+    document.querySelector('.about-title').textContent = translations[lang].aboutTitle;
+    document.querySelector('.about-intro').textContent = translations[lang].aboutIntro;
+    document.querySelector('.how-it-works').textContent = translations[lang].howItWorks;
+    document.querySelector('.how-it-works-desc').textContent = translations[lang].howItWorksDesc;
+    document.querySelector('.features-title').textContent = translations[lang].featuresTitle;
+    document.querySelector('.version-title').textContent = translations[lang].versionTitle;
+    document.querySelector('.creator-title').textContent = translations[lang].creatorTitle;
+    
+    // Update features list
+    const featureItems = document.querySelectorAll('.features-list .feature');
+    for (let i = 0; i < featureItems.length; i++) {
+        featureItems[i].textContent = translations[lang].features[i];
+    }
+    
+    // Update version descriptions
+    const versionDescs = document.querySelectorAll('.version-list > li > .version-desc');
+    for (let i = 0; i < versionDescs.length; i++) {
+        versionDescs[i].textContent = translations[lang].versions[i];
+    }
+    
+    // Update feature descriptions for each version
+    const featureV03 = document.querySelectorAll('.version-list > li:nth-child(3) ul .feature-desc');
+    for (let i = 0; i < featureV03.length; i++) {
+        featureV03[i].textContent = translations[lang].features_v03[i];
+    }
+    
+    const featureV10 = document.querySelectorAll('.version-list > li:nth-child(4) ul .feature-desc');
+    for (let i = 0; i < featureV10.length; i++) {
+        featureV10[i].textContent = translations[lang].features_v10[i];
+    }
+    
+    const featureV11 = document.querySelectorAll('.version-list > li:nth-child(5) ul .feature-desc');
+    for (let i = 0; i < featureV11.length; i++) {
+        featureV11[i].textContent = translations[lang].features_v11[i];
+    }
+    
+    const featureV21 = document.querySelectorAll('.version-list > li:nth-child(6) ul .feature-desc');
+    for (let i = 0; i < featureV21.length; i++) {
+        featureV21[i].textContent = translations[lang].features_v21[i];
+    }
+    
+    const featureV22 = document.querySelectorAll('.version-list > li:nth-child(7) ul .feature-desc');
+    for (let i = 0; i < featureV22.length; i++) {
+        featureV22[i].textContent = translations[lang].features_v22[i];
+    }
+    
+    const featureV221 = document.querySelectorAll('.version-list > li:nth-child(8) ul .feature-desc');
+    for (let i = 0; i < featureV221.length; i++) {
+        featureV221[i].textContent = translations[lang].features_v221[i];
+    }
+    
+    // Update version info
+    document.querySelector('.version-info').textContent = `${translations[lang].versionInfo} 2.2.1`;
 }
 
 async function fetchFortunes() {
@@ -404,6 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chineseMode = true;
         englishLangIcon.style.display = 'none';
         chineseLangIcon.style.display = 'block';
+        document.body.classList.add('chinese-mode');
         updateUILanguage('zh');
     }
     

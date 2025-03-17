@@ -689,3 +689,57 @@ body.light-mode .crystal-spinner {
         gap: 8px;
     }
 }
+
+    /* Chinese Font Styles */
+body.chinese-mode {
+    font-family: 'ZCOOL XiaoWei', serif;
+}
+
+body.chinese-mode h1 {
+    font-family: 'Ma Shan Zheng', cursive;
+    letter-spacing: normal;
+}
+
+body.chinese-mode h2 {
+    font-family: 'ZCOOL QingKe HuangYou', sans-serif;
+    letter-spacing: normal;
+}
+
+body.chinese-mode .fortune {
+    font-family: 'Ma Shan Zheng', cursive;
+}
+
+body.chinese-mode .answer {
+    font-family: 'Ma Shan Zheng', cursive;
+}
+
+body.chinese-mode .toggle-form-btn {
+    font-family: 'ZCOOL QingKe HuangYou', sans-serif;
+}
+
+body.chinese-mode .add-fortune-form textarea,
+body.chinese-mode .ask-question-form textarea {
+    font-family: 'ZCOOL XiaoWei', serif;
+}
+
+body.chinese-mode .add-fortune-form button,
+body.chinese-mode .ask-question-form button {
+    font-family: 'ZCOOL QingKe HuangYou', sans-serif;
+}
+
+body.chinese-mode .add-fortune-form textarea::placeholder,
+body.chinese-mode .ask-question-form textarea::placeholder {
+    font-family: 'ZCOOL XiaoWei', serif;
+}
+
+body.chinese-mode .message {
+    font-family: 'ZCOOL XiaoWei', serif;
+}
+
+body.chinese-mode .instructions {
+    font-family: 'ZCOOL XiaoWei', serif;
+}
+
+body.chinese-mode .loading-indicator p {
+    font-family: 'ZCOOL XiaoWei', serif;
+}

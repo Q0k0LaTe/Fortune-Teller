@@ -42,6 +42,10 @@ The Mysterious Fortune Teller is an interactive web application that provides my
 - **v2.2**: Added Chinese mode
   - New button to switch between langugaes
   - Added new UI design
+- **v2.2.1**: Fixed Bugs
+  - Fixed the bug that "about" is still english when switched to Chinese mode.
+  - Fixed the bug of version appearance 
+  - Fixed the bug the Chinese fonts are not showing.
 
 ## 🛠️ Technologies
 
