@@ -15,12 +15,24 @@ The Mysterious Fortune Teller is an interactive web application that provides my
 - **MongoDB Integration**: All fortunes are stored persistently
 - **Responsive Design**: Works on mobile and desktop devices
 - **Mystical UI**: Animated stars, magical fonts, and enchanting visuals
+- **Immersive Audio**: Background music and interactive sound effects
+
+## 📝 Version History
+
+- **v0.1**: Initial version with basic functionality
+- **v0.2**: Fixed bugs related to fortune display timers
+- **v0.3**: Added background music and interactive sound effects
+  - Magical background ambience
+  - Crystal ball click sounds
+  - Fortune reveal sound effects
+  - Sound toggle controls
 
 ## 🛠️ Technologies
 
 - **Frontend**: HTML5, CSS3, JavaScript
 - **Backend**: Node.js, Express
 - **Database**: MongoDB
+- **Audio**: Custom sound effects and background music
 - **Deployment**: GitHub
 
 ## 📋 Prerequisites
@@ -64,12 +76,17 @@ The Mysterious Fortune Teller is an interactive web application that provides my
 1. Visit the website
 2. Click on the crystal ball
 3. Your mystical fortune will appear below the crystal ball
+4. Enjoy the magical sound effects!
 
 ### Adding a Fortune
 1. Click the "Add Your Own Fortune" button
 2. Enter your fortune (minimum 10 characters)
 3. Click "Submit Fortune"
 4. Your fortune is now part of the collection!
+
+### Sound Controls
+- Click the sound icon in the bottom-right corner to toggle audio on/off
+- Your sound preference will be remembered for future visits
 
 ## 📱 Mobile Support
 
@@ -86,7 +103,7 @@ The application is designed to be fully responsive and works on all device sizes
 - Different fortune categories (love, career, etc.)
 - Social sharing capabilities
 - Dark/light theme toggle
-- More interactive animations
+- Additional sound effects and animations
 
 ## 📝 License
 
@@ -103,3 +120,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Special thanks to all the mystical forces that inspired this project
 - Fonts provided by Google Fonts
 - Icons and design inspiration from various mystical sources
+- Audio elements created with assistance from AI tools
