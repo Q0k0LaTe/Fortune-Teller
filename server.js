@@ -4,17 +4,14 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { OpenAI } = require('openai');
 
-// Create Express app
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Initialize OpenAI with Deepseek configuration
 const openai = new OpenAI({
   baseURL: 'https://api.deepseek.com',
   apiKey: 'sk-7d7b8428b0c044f4909d13755e77e9cf'
 });
 
-// Connect to MongoDB Atlas
 mongoose.connect('mongodb+srv://Q0k0LaTes:Hanzhuoting0324-@cluster0.ngvjs.mongodb.net/fortuneTeller', {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -24,7 +21,6 @@ mongoose.connect('mongodb+srv://Q0k0LaTes:Hanzhuoting0324-@cluster0.ngvjs.mongod
   console.error('MongoDB connection error:', err);
 });
 
-// Create simplified Fortune model (no approval needed)
 const Fortune = mongoose.model('Fortune', {
   text: {
     type: String,
@@ -37,17 +33,14 @@ const Fortune = mongoose.model('Fortune', {
   }
 });
 
-// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Route for the home page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// API route to get all fortunes
 app.get('/api/fortunes', async (req, res) => {
   try {
     const fortunes = await Fortune.find().select('text -_id');
@@ -58,7 +51,6 @@ app.get('/api/fortunes', async (req, res) => {
   }
 });
 
-// API route to add a new fortune (directly added, no approval required)
 app.post('/api/fortunes', async (req, res) => {
   try {
     const { text } = req.body;
@@ -67,7 +59,6 @@ app.post('/api/fortunes', async (req, res) => {
       return res.status(400).json({ error: 'Fortune must be at least 10 characters long' });
     }
     
-    // Create and save the new fortune immediately
     const newFortune = new Fortune({ text });
     await newFortune.save();
     
@@ -78,22 +69,27 @@ app.post('/api/fortunes', async (req, res) => {
   }
 });
 
-// API route for asking questions to the Deepseek API
 app.post('/api/ask-question', async (req, res) => {
   try {
-    const { question } = req.body;
+    const { question, language } = req.body;
     
     if (!question || question.trim().length < 5) {
-      return res.status(400).json({ error: 'Question must be at least 5 characters long' });
+      return res.status(400).json({ error: language === 'zh' ? '问题必须至少5个字符长' : 'Question must be at least 5 characters long' });
     }
     
-    // Call Deepseek API using OpenAI SDK
+    const systemMessages = {
+      'en': "You are a mystical fortune teller. Answer the user's question in a mysterious, wise, and poetic way. Use metaphors, references to cosmic forces, stars, the universe, and ancient wisdom. Keep your answers insightful, positive, and concise. Your response must be between 75 and 150 words.",
+      'zh': "你是一位神秘的占卜师。以神秘、睿智和诗意的方式回答用户的问题。使用隐喻，引用宇宙力量、星辰、宇宙和古老智慧。保持你的回答有见地、积极和简洁。你的回答必须在75到150字之间。"
+    };
+    
+    const systemMessage = systemMessages[language || 'en'];
+    
     const completion = await openai.chat.completions.create({
       model: "deepseek-chat",
       messages: [
         {
           role: "system",
-          content: "You are a mystical fortune teller. Answer the user's question in a mysterious, wise, and poetic way. Use metaphors, references to cosmic forces, stars, the universe, and ancient wisdom. Keep your answers insightful and positive. Limit your response to 150 words."
+          content: systemMessage
         },
         {
           role: "user",
@@ -103,19 +99,27 @@ app.post('/api/ask-question', async (req, res) => {
       max_tokens: 500
     });
     
-    const answer = completion.choices[0].message.content;
+    let answer = completion.choices[0].message.content;
+    
+    const maxLength = 500;
+    if (answer.length > maxLength) {
+      answer = answer.substring(0, maxLength) + (language === 'zh' ? "... [神秘的预见消失了]" : "... [The cosmic vision fades]");
+    }
+    
     res.json({ answer });
     
   } catch (err) {
-    console.error('Error asking question:', err);
-    console.error('Error details:', err.message);
-    console.error('Error response:', err.response ? err.response.data : 'No response data');
+    console.error('Error asking question:', err.message);
+    console.error('Error details:', err);
     
-    res.status(500).json({ error: 'The oracle is momentarily clouded. Please try again later.' });
+    res.status(500).json({ 
+      error: req.body.language === 'zh' ? 
+        '预言家暂时被遮蔽。请稍后再试。' : 
+        'The oracle is momentarily clouded. Please try again later.' 
+    });
   }
 });
 
-// Start the server
 app.listen(PORT, () => {
   console.log(`Fortune Teller website is running at http://localhost:${PORT}`);
   console.log(`Press Ctrl+C to stop the server`);

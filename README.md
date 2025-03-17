@@ -39,6 +39,9 @@ The Mysterious Fortune Teller is an interactive web application that provides my
 - **v2.1**: Added Q&A fortune-teller mode
   - Driven by DeepSeek V3 model
   - Added new UI design
+- **v2.2**: Added Chinese mode
+  - New button to switch between langugaes
+  - Added new UI design
 
 ## 🛠️ Technologies
 
